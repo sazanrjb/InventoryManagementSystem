@@ -6,6 +6,6 @@ sales information. It also records the stock currently available in the store.
 
 Download .sql file for this application: https://drive.google.com/open?id=0Bw-qNYNSGhdCN09YZDV6SmtRN00
 
-Download required third party plugins (includes JCalender, JTatto and SQLConnector) : https://drive.google.com/file/d/0Bw-qNYNSGhdCMU1mekN4SmRCb1E/view?usp=sharing
+Download required third party plugins (includes JCalender, JTattoo and SQLConnector) : https://drive.google.com/file/d/0Bw-qNYNSGhdCMU1mekN4SmRCb1E/view?usp=sharing
 
 Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing
