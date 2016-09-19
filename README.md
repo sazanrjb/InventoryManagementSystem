@@ -9,3 +9,5 @@ Download .sql file for this application: https://drive.google.com/open?id=0Bw-qN
 Download required third party plugins (includes JCalender, JTattoo and SQLConnector) : https://drive.google.com/file/d/0Bw-qNYNSGhdCMU1mekN4SmRCb1E/view?usp=sharing
 
 Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing
+
+Download full documentation for free: https://www.scribd.com/doc/296989740/InventoryManagementSystem-Sajan-Rajbhandari
