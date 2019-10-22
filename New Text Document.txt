@@ -1,0 +1,12 @@
+built installer guide
+1. run cmd
+2. run command "python setup.py py2exe"
+
+
+#Default.docx(system specific)
+
+#Company Detail
+#logo.png
+#database.db
+
+#data folder(system specific)
