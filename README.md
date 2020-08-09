@@ -11,3 +11,9 @@ Download required third party plugins (includes JCalender, JTattoo and SQLConnec
 Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing
 
 Download full documentation for free: https://www.scribd.com/doc/296989740/InventoryManagementSystem-Sajan-Rajbhandari
+
+Credentials:
+
+After importing the above sql file and adding the plugins, try using the credential username: `user4` and password: `test123`
+
+Also make sure your mysql is username: `root` and password: `root`. If not change the credential in `../ims/src/com/inventory/database/ConnectionFactory.java` line no. 36 and 44.
