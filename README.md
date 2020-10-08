@@ -10,7 +10,9 @@ Download required third party plugins (includes JCalender, JTattoo and SQLConnec
 
 Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing
 
-Download full documentation for free: https://www.scribd.com/doc/296989740/InventoryManagementSystem-Sajan-Rajbhandari
+Download full documentation for free: 
+- https://www.scribd.com/doc/296989740/InventoryManagementSystem-Sajan-Rajbhandari  
+- [Inventory-Management-System-Sajan-Rajbhandari.pdf](https://github.com/sazanrjb/InventoryManagementSystem/blob/master/docs/Inventory-Management-System-Sajan-Rajbhandari.pdf)
 
 Credentials:
 
