@@ -4,11 +4,11 @@ sales information. It also records the stock currently available in the store.
   There are basically two users, Administrator and Normal User. Both the users can manage suppliers, products, customers and purchase and sell products.
   The only difference between the two users is that the administrator can also view sales report and can also manage other users.
 
-Download .sql file for this application: https://drive.google.com/open?id=0Bw-qNYNSGhdCN09YZDV6SmtRN00
+Download .sql file for this application: https://drive.google.com/file/d/0Bw-qNYNSGhdCN09YZDV6SmtRN00/view?usp=sharing&resourcekey=0-g98Gi5ErSgzV-Jit-4Ow6Q
 
-Download required third party plugins (includes JCalender, JTattoo and SQLConnector) : https://drive.google.com/file/d/0Bw-qNYNSGhdCMU1mekN4SmRCb1E/view?usp=sharing
+Download required third party plugins (includes JCalender, JTattoo and SQLConnector) : https://drive.google.com/file/d/0Bw-qNYNSGhdCMU1mekN4SmRCb1E/view?usp=sharing&resourcekey=0-mynFCWwHM0l7oUuBwDIVbw
 
-Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing
+Download the software only: https://drive.google.com/file/d/0Bw-qNYNSGhdCbVdSdzZHX0pZOFE/view?usp=sharing&resourcekey=0-Q9wY-we5-vgs26YpPMrYaQ
 
 Download full documentation for free: 
 - https://www.scribd.com/doc/296989740/InventoryManagementSystem-Sajan-Rajbhandari  
