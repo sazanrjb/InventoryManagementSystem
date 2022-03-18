@@ -22,7 +22,7 @@ public class ConnectionFactory {
     
     public ConnectionFactory(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://localhost/ims?user=root&password=root");
             stmt=con.createStatement();
         }catch(Exception e){
@@ -32,7 +32,7 @@ public class ConnectionFactory {
     
     public Connection getConnection(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://localhost/ims?user=root&password=root");
         }catch(Exception e){
             e.printStackTrace();

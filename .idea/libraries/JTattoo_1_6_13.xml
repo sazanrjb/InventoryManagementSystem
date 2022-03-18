@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JTattoo-1.6.13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../libraries/JTattoo-1.6.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
