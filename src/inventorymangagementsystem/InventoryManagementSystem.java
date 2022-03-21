@@ -18,10 +18,6 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author ADMIN
  */
 public class InventoryManagementSystem {
-
-    /**
-     * @param args the command line arguments
-     */
     public InventoryManagementSystem(int a){
     /*    if(a==1){
             try{

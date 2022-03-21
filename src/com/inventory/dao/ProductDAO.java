@@ -613,8 +613,21 @@ public class ProductDAO {
         return p;
     }
 
-    //start of method DefaultTableModle
+    /***
+     * Refactoring name: EXTRACT METHOD
+     * To remove multiple responsibilities: Extracted code block from buildTableModel() and,
+     * Created two new methods getColumnNames() and tableModel() and,
+     * Passed appropriate variables and return appropriate values
+     */
     public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+        Vector<String> columnNames = getColumnNames(rs);
+        Vector<Vector<Object>> data = tableModel(rs, columnNames);
+
+        return new DefaultTableModel(data, columnNames);
+    }//end of method DefaultTableModel
+
+
+    public Vector<String> getColumnNames(ResultSet rs) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData(); //resultset ko metadata
         Vector<String> columnNames = new Vector<String>();
         int columnCount = metaData.getColumnCount();
@@ -623,7 +636,13 @@ public class ProductDAO {
             columnNames.add(metaData.getColumnName(column));
         }
 
+        return columnNames;
+    }
+
+    public Vector<Vector<Object>> tableModel(ResultSet rs, Vector<String> columnNames) throws SQLException {
+        int columnCount = columnNames.size();
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
         while (rs.next()) {
             Vector<Object> vector = new Vector<Object>();
             for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
@@ -631,6 +650,6 @@ public class ProductDAO {
             }
             data.add(vector);
         }
-        return new DefaultTableModel(data, columnNames);
-    }//end of method DefaultTableModel
+        return data;
+    }
 }
