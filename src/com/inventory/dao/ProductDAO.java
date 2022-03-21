@@ -34,7 +34,7 @@ public class ProductDAO {
     /***
      * Refactoring name: EXTRACT CLASS
      * Extract class refactoring is implemented to remove multiple responsibilities
-     * checkStock() was present in this method which is moved to a new class Stocks.java
+     * checkStock() was present in this class which is moved to a new class Stocks.java
      * Here object of new class is created and method checkStock() of Stocks.java class is called with this object.
      * This improves cohesiveness.
      */
@@ -255,9 +255,13 @@ public class ProductDAO {
                      e.printStackTrace();   
                 }
             }
-            deleteStock();
-                  
-                  
+
+         /***
+          * Refactoring name: MOVE METHOD
+          * Move method refactoring is implemented to improve cohesion and reduce coupling
+          * deleteStock() was present in this class which is moved to other class Stocks.java
+          */
+            stocks.deleteStock(stmt);
      }
     
     public void editProductDAO(ProductDTO productdto) {
@@ -385,20 +389,7 @@ public class ProductDAO {
             e.printStackTrace();
         }
     }
-    
-    
-    
-    public void deleteStock(){
-         try{
-             String q="DELETE FROM currentstocks WHERE productcode NOT IN(SELECT productcode FROM purchaseinfo)";
-             String q1="DELETE FROM salesreport WHERE productcode NOT IN(SELECT productcode FROM products)";
-             stmt.executeUpdate(q);
-             stmt.executeUpdate(q1);
-         }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    
+
     public void deleteProductDAO(String value){
         try{
             String query="delete from products where productcode=?";
@@ -409,7 +400,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     
@@ -423,7 +414,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     public void deleteSalesDAO(String value){
@@ -436,7 +427,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     public void sellProductDAO(ProductDTO productDTO,String username){
