@@ -36,11 +36,15 @@ public class CustomerDAO {
                 e.printStackTrace();
         }
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => findCustomersByNameLocationAndPhone
+     */
      public void addCustomerDAO(CustomerDTO customerdto) {
         try{
-                String query = "SELECT * FROM customers WHERE fullname='"+customerdto.getFullName()+"' AND location='"+customerdto.getLocation()+"' AND phone='"+customerdto.getPhone()+"'";
-                rs=stmt.executeQuery(query);
+                String findCustomersByNameLocationAndPhone = "SELECT * FROM customers WHERE fullname='"+customerdto.getFullName()+"' AND location='"+customerdto.getLocation()+"' AND phone='"+customerdto.getPhone()+"'";
+                rs=stmt.executeQuery(findCustomersByNameLocationAndPhone);
                 if(rs.next()){
                     JOptionPane.showMessageDialog(null,"Same Customer has already been added!");
                 }else{
@@ -50,19 +54,26 @@ public class CustomerDAO {
                 e.printStackTrace();
         }           
     }//end of method addCustomerDTO
-     
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from
+     * query1 => getAllCustomers
+     * query2 => getAllCustomersInDescOrder
+     * q => insertCustomers
+     */
      public void addFunction(CustomerDTO customerdto){
          try {
                         String customerCode = null;
                         String oldCustomerCode = null;
-                        String query1="SELECT * FROM customers";
-                        rs=stmt.executeQuery(query1);
+                        String getAllCustomers="SELECT * FROM customers";
+                        rs=stmt.executeQuery(getAllCustomers);
                         if(!rs.next()){
                             customerCode="cus"+"1"; 
                         }
                         else{
-                            String query2="SELECT * FROM customers ORDER by cid DESC";
-                            rs=stmt.executeQuery(query2);
+                            String getAllCustomersInDescOrder="SELECT * FROM customers ORDER by cid DESC";
+                            rs=stmt.executeQuery(getAllCustomersInDescOrder);
                             if(rs.next()){
                                 oldCustomerCode=rs.getString("customercode");
                                 Integer scode=Integer.parseInt(oldCustomerCode.substring(3));
@@ -70,8 +81,8 @@ public class CustomerDAO {
                                 customerCode="cus"+scode;
                             }
                         }
-                            String q = "INSERT INTO customers VALUES(null,?,?,?,?)";
-                            pstmt = (PreparedStatement) con.prepareStatement(q);
+                            String insertCustomers = "INSERT INTO customers VALUES(null,?,?,?,?)";
+                            pstmt = (PreparedStatement) con.prepareStatement(insertCustomers);
                             pstmt.setString(1, customerCode);
                             pstmt.setString(2, customerdto.getFullName());
                             pstmt.setString(3, customerdto.getLocation());
@@ -82,11 +93,15 @@ public class CustomerDAO {
                             e.printStackTrace();
                         }
      }
-     
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => updateCustomerDetails
+     */
     public void editCustomerDAO(CustomerDTO customerdto){
           try {
-                        String query = "UPDATE customers SET fullname=?,location=?,phone=? WHERE customercode=?";
-                        pstmt = (PreparedStatement) con.prepareStatement(query);
+                        String updateCustomerDetails = "UPDATE customers SET fullname=?,location=?,phone=? WHERE customercode=?";
+                        pstmt = (PreparedStatement) con.prepareStatement(updateCustomerDetails);
                         pstmt.setString(1, customerdto.getFullName());
                         pstmt.setString(2, customerdto.getLocation());
                         pstmt.setString(3, customerdto.getPhone());
@@ -98,12 +113,16 @@ public class CustomerDAO {
                 e.printStackTrace();
             } 
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => deleteCustomerByCode
+     */
     public void deleteCustomerDAO(String value){
         try{
             System.out.println(value);
-            String query="delete from customers where customercode=?";
-            pstmt=con.prepareStatement(query);
+            String deleteCustomerByCode="delete from customers where customercode=?";
+            pstmt=con.prepareStatement(deleteCustomerByCode);
             pstmt.setString(1,value);
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Deleted..");
@@ -113,67 +132,89 @@ public class CustomerDAO {
     }
 
 
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomersDetails
+     */
     public ResultSet getQueryResult() {
         try {
-            String query = "SELECT customercode AS CustomerCode, fullname AS Name, location AS Location, phone AS Phone FROM customers";
-            rs = stmt.executeQuery(query);
+            String getCustomersDetails = "SELECT customercode AS CustomerCode, fullname AS Name, location AS Location, phone AS Phone FROM customers";
+            rs = stmt.executeQuery(getCustomersDetails);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rs;
     }//end of method getQueryResult
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomersWithCredit
+     */
     public ResultSet getCreditCustomersQueryResult() {
         try {
-            String query = "SELECT * FROM customers WHERE credit>0";
-            rs = stmt.executeQuery(query);
+            String getCustomersWithCredit = "SELECT * FROM customers WHERE credit>0";
+            rs = stmt.executeQuery(getCustomersWithCredit);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rs;
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomersWithDebit
+     */
     public ResultSet getDebitCustomersQueryResult() {
         try {
-            String query = "SELECT * FROM customers WHERE credit=0";
-            rs = stmt.executeQuery(query);
+            String getCustomersWithDebit = "SELECT * FROM customers WHERE credit=0";
+            rs = stmt.executeQuery(getCustomersWithDebit);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rs;
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomers
+     */
     public ResultSet getSearchCustomersQueryResult(String searchTxt) {
         try {
-            String query = "SELECT * FROM customers WHERE fullname LIKE '%"+searchTxt+"%' OR location LIKE '%"+searchTxt+"%' OR customercode LIKE '%"+searchTxt+"%' OR phone LIKE '%"+searchTxt+"%'";
-            rs = stmt.executeQuery(query);
+            String getCustomers = "SELECT * FROM customers WHERE fullname LIKE '%"+searchTxt+"%' OR location LIKE '%"+searchTxt+"%' OR customercode LIKE '%"+searchTxt+"%' OR phone LIKE '%"+searchTxt+"%'";
+            rs = stmt.executeQuery(getCustomers);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rs;
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomersByCode
+     */
     public ResultSet getCustomersName(String customerCode){
         try{
-            String query="SELECT * FROM customers WHERE customercode='"+customerCode+"'";
-            rs=stmt.executeQuery(query);
+            String getCustomersByCode="SELECT * FROM customers WHERE customercode='"+customerCode+"'";
+            rs=stmt.executeQuery(getCustomersByCode);
         }catch(Exception e){
             e.printStackTrace();
         }
         return rs;
     }
-    
+
+    /***
+     * Refactoring name: RENAME VARIABLE
+     * Changed variable name from query => getCustomersByProductCode
+     */
     public ResultSet getProductsName(String productCode){
         try{
-            String query="SELECT productname, currentstocks.quantity FROM products INNER JOIN currentstocks ON products.productcode=currentstocks.productcode WHERE currentstocks.productcode='"+productCode+"'";
-            rs=stmt.executeQuery(query);
+            String getCustomersByProductCode="SELECT productname, currentstocks.quantity FROM products INNER JOIN currentstocks ON products.productcode=currentstocks.productcode WHERE currentstocks.productcode='"+productCode+"'";
+            rs=stmt.executeQuery(getCustomersByProductCode);
         }catch(Exception e){
             e.printStackTrace();
         }
         return rs;
     }
-    
-    
 
     //start of method DefaultTableModel
     public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
