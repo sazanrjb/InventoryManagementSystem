@@ -31,11 +31,22 @@ public class ProductDAO {
     Statement stmt1=null;
     ResultSet rs = null;
 
+    /***
+     * Refactoring name: EXTRACT CLASS
+     * Extract class refactoring is implemented to remove multiple responsibilities
+     * checkStock() was present in this class which is moved to a new class Stocks.java
+     * Here object of new class is created and method checkStock() of Stocks.java class is called with this object.
+     * This improves cohesiveness.
+     */
+    Stocks stocks = null;
+
+
     public ProductDAO() {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.createStatement();
             stmt1=con.createStatement();
+            stocks = new Stocks();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,20 +164,6 @@ public class ProductDAO {
         }
         return customerCode;
     }
-
-    boolean flag=false;
-    public boolean checkStock(String productcode){
-        try{
-            String query="SELECT * FROM currentstocks where productcode='"+productcode+"'";
-            ResultSet rs=stmt.executeQuery(query);
-            while(rs.next()){
-                flag=true;
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return flag;
-    }
     
     public void addProductDAO(ProductDTO productdto) {
          try{
@@ -219,6 +216,7 @@ public class ProductDAO {
 
 //    addPurchaseDAO
      public void addPurchaseDAO(ProductDTO productdto){
+
         try {
                     String q = "INSERT INTO purchaseinfo VALUES(null,?,?,?,?,?)";
                     pstmt = (PreparedStatement) con.prepareStatement(q);
@@ -234,7 +232,7 @@ public class ProductDAO {
                 }
         
             String productCode=productdto.getProductCode();
-            if(checkStock(productCode)==true){
+            if(stocks.checkStock(productCode, stmt)==true){
                 try {
                     String q = "UPDATE currentstocks SET quantity=quantity+? WHERE productcode=?";
                     pstmt = (PreparedStatement) con.prepareStatement(q);
@@ -245,7 +243,7 @@ public class ProductDAO {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else if(checkStock(productCode)==false){
+            }else if(stocks.checkStock(productCode, stmt)==false){
                 try{
                     String q = "INSERT INTO currentstocks VALUES(?,?)";
                     pstmt = (PreparedStatement) con.prepareStatement(q);
@@ -257,9 +255,13 @@ public class ProductDAO {
                      e.printStackTrace();   
                 }
             }
-            deleteStock();
-                  
-                  
+
+         /***
+          * Refactoring name: MOVE METHOD
+          * Move method refactoring is implemented to improve cohesion and reduce coupling
+          * deleteStock() was present in this class which is moved to other class Stocks.java
+          */
+            stocks.deleteStock(stmt);
      }
     
     public void editProductDAO(ProductDTO productdto) {
@@ -387,20 +389,7 @@ public class ProductDAO {
             e.printStackTrace();
         }
     }
-    
-    
-    
-    public void deleteStock(){
-         try{
-             String q="DELETE FROM currentstocks WHERE productcode NOT IN(SELECT productcode FROM purchaseinfo)";
-             String q1="DELETE FROM salesreport WHERE productcode NOT IN(SELECT productcode FROM products)";
-             stmt.executeUpdate(q);
-             stmt.executeUpdate(q1);
-         }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    
+
     public void deleteProductDAO(String value){
         try{
             String query="delete from products where productcode=?";
@@ -411,7 +400,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     
@@ -425,7 +414,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     public void deleteSalesDAO(String value){
@@ -438,7 +427,7 @@ public class ProductDAO {
         }catch(SQLException  e){
             e.printStackTrace();
         }
-        deleteStock();
+        stocks.deleteStock(stmt);
     }
     
     public void sellProductDAO(ProductDTO productDTO,String username){
@@ -613,8 +602,21 @@ public class ProductDAO {
         return p;
     }
 
-    //start of method DefaultTableModle
+    /***
+     * Refactoring name: EXTRACT METHOD
+     * To remove multiple responsibilities: Extracted code block from buildTableModel() and,
+     * Created two new methods getColumnNames() and tableModel() and,
+     * Passed appropriate variables and return appropriate values
+     */
     public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+        Vector<String> columnNames = getColumnNames(rs);
+        Vector<Vector<Object>> data = tableModel(rs, columnNames);
+
+        return new DefaultTableModel(data, columnNames);
+    }//end of method DefaultTableModel
+
+
+    public Vector<String> getColumnNames(ResultSet rs) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData(); //resultset ko metadata
         Vector<String> columnNames = new Vector<String>();
         int columnCount = metaData.getColumnCount();
@@ -623,7 +625,13 @@ public class ProductDAO {
             columnNames.add(metaData.getColumnName(column));
         }
 
+        return columnNames;
+    }
+
+    public Vector<Vector<Object>> tableModel(ResultSet rs, Vector<String> columnNames) throws SQLException {
+        int columnCount = columnNames.size();
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
         while (rs.next()) {
             Vector<Object> vector = new Vector<Object>();
             for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
@@ -631,6 +639,6 @@ public class ProductDAO {
             }
             data.add(vector);
         }
-        return new DefaultTableModel(data, columnNames);
-    }//end of method DefaultTableModel
+        return data;
+    }
 }
